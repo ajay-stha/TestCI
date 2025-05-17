@@ -42,7 +42,7 @@ jobs:
     - name: Test
       shell: powershell
       run: |
-        $code_coverage = ${{ vars.ENABLE_CODE_COVERAGE }}
+        $code_coverage = '${{ vars.ENABLE_CODE_COVERAGE }}'
         if ($code_coverage -eq 'true') {
           dotnet test --no-build --configuration ${{ vars.BUILD_CONFIGURATION }} --collect:"XPlat Code Coverage"
         } else {
