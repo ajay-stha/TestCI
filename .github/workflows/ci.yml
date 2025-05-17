@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 jobs:
-  winappdriver-tests:
+  ui-tests:
     runs-on: [self-hosted, windows]
 
     steps:
@@ -19,22 +19,20 @@ jobs:
           Write-Host ".NET is already installed. Version: $(dotnet --version)"
         }
 
-    - name: Setup .NET
+    - name: Setup .NET ${{ env.DOTNET_VERSION }}
       if: steps.check_dotnet.outcome == 'failure'
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '9.0.203'
+        dotnet-version: ${{ env.DOTNET_VERSION }}
 
     - name: Checkout PR branch
       uses: actions/checkout@v4
-      with:
-        ref: ${{ github.head_ref }}
 
     - name: Restore dependencies
       run: dotnet restore
 
     - name: Build
-      run: dotnet build --no-restore --configuration Release
+      run: dotnet build --no-restore --configuration ${{ env.BUILD_CONFIGURATION }}
 
     - name: Start WinAppDriver
       run: Start-Process "C:\Program Files (x86)\Windows Application Driver\WinAppDriver.exe"
@@ -42,7 +40,7 @@ jobs:
     - name: Test
       run: |
         if ($env:ENABLE_CODE_COVERAGE -eq "true") {
-          dotnet test --no-build --configuration Release --collect:"XPlat Code Coverage"
+          dotnet test --no-build --configuration ${{ env.BUILD_CONFIGURATION }} --collect:"XPlat Code Coverage"
         } else {
-          dotnet test --no-build --configuration Release
+          dotnet test --no-build --configuration ${{ env.BUILD_CONFIGURATION }}
         }
