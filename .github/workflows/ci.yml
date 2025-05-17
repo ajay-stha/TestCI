@@ -19,20 +19,22 @@ jobs:
           Write-Host ".NET is already installed. Version: $(dotnet --version)"
         }
 
-    - name: Setup .NET $env:DOTNET_VERSION
+    - name: Setup .NET ${{ vars:DOTNET_VERSION }}
       if: steps.check_dotnet.outcome == 'failure'
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: $env:DOTNET_VERSION
+        dotnet-version: ${{ vars:DOTNET_VERSION }}
 
     - name: Checkout PR branch
       uses: actions/checkout@v4
+      with:
+        ref: ${{ github.head_ref }}
 
     - name: Restore dependencies
       run: dotnet restore
 
     - name: Build
-      run: dotnet build --no-restore --configuration $env:BUILD_CONFIGURATION
+      run: dotnet build --no-restore --configuration ${{ vars:BUILD_CONFIGURATION }}
 
     - name: Start WinAppDriver
       run: Start-Process "C:\Program Files (x86)\Windows Application Driver\WinAppDriver.exe"
@@ -40,7 +42,7 @@ jobs:
     - name: Test
       run: |
         if ($env:ENABLE_CODE_COVERAGE -eq "true") {
-          dotnet test --no-build --configuration $env:BUILD_CONFIGURATION --collect:"XPlat Code Coverage"
+          dotnet test --no-build --configuration ${{ vars:BUILD_CONFIGURATION }} --collect:"XPlat Code Coverage"
         } else {
-          dotnet test --no-build --configuration $env:BUILD_CONFIGURATION
+          dotnet test --no-build --configuration ${{ vars:BUILD_CONFIGURATION }}
         }
