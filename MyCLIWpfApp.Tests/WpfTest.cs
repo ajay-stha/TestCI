@@ -42,7 +42,7 @@ public class WpfTest
             txtName.SendKeys("aJ");
             _DesktopSession.FindElementByAccessibilityId("sayHelloButton").Click();
             var txtResult = _DesktopSession.FindElementByAccessibilityId("txtResult");
-            Assert.That(txtResult.Text, Is.EqualTo($"Hello {txtName.Text}"));
+            Assert.That(txtResult.Text, Is.EqualTo($"Helloo {txtName.Text}"));
         }
         else
         {
