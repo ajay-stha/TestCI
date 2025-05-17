@@ -40,4 +40,9 @@ jobs:
       run: Start-Process "C:\Program Files (x86)\Windows Application Driver\WinAppDriver.exe"
 
     - name: Test
-      run: dotnet test --no-build --collect:"XPlat Code Coverage"
+      run: |
+        if ($env:ENABLE_CODE_COVERAGE -eq "true") {
+          dotnet test --no-build --collect:"XPlat Code Coverage"
+        } else {
+          dotnet test --no-build
+        }
