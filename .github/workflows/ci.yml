@@ -19,11 +19,11 @@ jobs:
           Write-Host ".NET is already installed. Version: $(dotnet --version)"
         }
 
-    - name: Setup .NET
+    - name: Setup .NET ${{ vars.DOTNET_VERSION }}
       if: steps.check_dotnet.outcome == 'failure'
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '9.0.203'
+        dotnet-version: ${{ vars.DOTNET_VERSION }}
 
     - name: Checkout PR branch
       uses: actions/checkout@v4
@@ -34,15 +34,17 @@ jobs:
       run: dotnet restore
 
     - name: Build
-      run: dotnet build --no-restore --configuration Release
+      run: dotnet build --no-restore --configuration ${{ vars.BUILD_CONFIGURATION }}
 
     - name: Start WinAppDriver
       run: Start-Process "C:\Program Files (x86)\Windows Application Driver\WinAppDriver.exe"
 
     - name: Test
+      shell: powershell
       run: |
-        if ($env:ENABLE_CODE_COVERAGE -eq "true") {
-          dotnet test --no-build --configuration Release --collect:"XPlat Code Coverage"
+        $code_coverage = '${{ vars.ENABLE_CODE_COVERAGE }}'
+        if ($code_coverage -eq 'true') {
+          dotnet test --no-build --configuration ${{ vars.BUILD_CONFIGURATION }} --collect:"XPlat Code Coverage"
         } else {
-          dotnet test --no-build --configuration Release
+          dotnet test --no-build --configuration ${{ vars.BUILD_CONFIGURATION }}
         }
