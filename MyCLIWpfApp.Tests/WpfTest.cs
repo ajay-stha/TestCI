@@ -44,6 +44,10 @@ public class WpfTest
             var txtResult = _DesktopSession.FindElementByAccessibilityId("txtResult");
             Assert.That(txtResult.Text, Is.EqualTo($"Hello {txtName.Text}"));
         }
+        else
+        {
+            Assert.Fail("Desktop session is null. Test cannot be executed.");
+        }
     }
 
     [OneTimeTearDown]
