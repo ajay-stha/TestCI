@@ -41,7 +41,7 @@ jobs:
 
     - name: Test
       run: |
-        if (${{vars.ENABLE_CODE_COVERAGE == 'true'}}) {
+        if (${{vars.ENABLE_CODE_COVERAGE }} -eq 'true') {
           dotnet test --no-build --configuration ${{ vars.BUILD_CONFIGURATION }} --collect:"XPlat Code Coverage"
         } else {
           dotnet test --no-build --configuration ${{ vars.BUILD_CONFIGURATION }}
