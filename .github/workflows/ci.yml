@@ -17,6 +17,7 @@ jobs:
           Write-Host ".NET not found. Installing..."
         } else {
           Write-Host ".NET is already installed. Version: $(dotnet --version)"
+        }
 
     - name: Setup .NET
       if: steps.check_dotnet.outcome == 'failure'
