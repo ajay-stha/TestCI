@@ -1,4 +1,4 @@
-name: CI
+name: UI Tests with WinAppDriver
 
 on:
   pull_request:
@@ -9,12 +9,26 @@ jobs:
     runs-on: [self-hosted, windows]
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Check if .NET is already installed
+      shell: pwsh
+      run: |
+        $dotnet = Get-Command dotnet -ErrorAction SilentlyContinue
+        if ($null -eq $dotnet) {
+          Write-Host ".NET not found. Installing..."
+        } else {
+          Write-Host ".NET is already installed. Version: $(dotnet --version)"
+        }
 
     - name: Setup .NET
+      if: steps.check_dotnet.outcome == 'failure'
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '9.0.203'
+
+    - name: Checkout PR branch
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ github.head_ref }}
 
     - name: Restore dependencies
       run: dotnet restore
