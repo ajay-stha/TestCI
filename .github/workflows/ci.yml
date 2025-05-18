@@ -16,12 +16,14 @@ jobs:
         $dotnet = Get-Command dotnet -ErrorAction SilentlyContinue
         if ($null -eq $dotnet) {
           Write-Host ".NET not found. Installing..."
+          echo "::set-output name=missing::true"
         } else {
           Write-Host ".NET is already installed. Version: $(dotnet --version)"
+          echo "::set-output name=missing::false"
         }
 
     - name: Setup .NET ${{ vars.DOTNET_VERSION }}
-      if: steps.check_dotnet.outcome == 'failure'
+      if: steps.check_dotnet.outputs.missing == 'true'
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: ${{ vars.DOTNET_VERSION }}
