@@ -4,6 +4,9 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  DOTNET_MISSING: 'true'
+
 jobs:
   ui-tests:
     runs-on: [self-hosted, windows]
@@ -15,12 +18,14 @@ jobs:
         $dotnet = Get-Command dotnet -ErrorAction SilentlyContinue
         if ($null -eq $dotnet) {
           Write-Host ".NET not found. Installing..."
+          echo "DOTNET_MISSING=true" | Out-File -FilePath $env:GITHUB_ENV -Append
         } else {
           Write-Host ".NET is already installed. Version: $(dotnet --version)"
+          echo "DOTNET_MISSING=false" | Out-File -FilePath $env:GITHUB_ENV -Append
         }
 
     - name: Setup .NET ${{ vars.DOTNET_VERSION }}
-      if: steps.check_dotnet.outcome == 'failure'
+      if: env.DOTNET_MISSING == 'true'
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: ${{ vars.DOTNET_VERSION }}
