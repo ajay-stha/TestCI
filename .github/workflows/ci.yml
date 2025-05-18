@@ -13,7 +13,6 @@ jobs:
 
     steps:
     - name: Check if .NET is already installed
-      id: check_dotnet
       shell: powershell
       run: |
         $dotnet = Get-Command dotnet -ErrorAction SilentlyContinue
