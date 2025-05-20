@@ -5,30 +5,35 @@ namespace MyCLIWpfApp.Wpf.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
+        public string? _Title =
 #if RELEASE
-        public string _Title = "Main Window";
+    "Main Window";
 #else
-        public string _Title = "Main Window QA";
+    "Main Window QA";
 #endif
+
 
         public string? Title
         {
             get => _Title;
             set => SetProperty(ref _Title, value);
         }
+
+        #region INotifyPropertyChanged Implementation
         public event PropertyChangedEventHandler? PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        protected bool SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = "")
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = "")
-        {
-            if (Equals(storage, value))
+            if (EqualityComparer<T>.Default.Equals(field, value))
                 return false;
 
-            storage = value;
+            field = value;
             OnPropertyChanged(propertyName);
             return true;
         }
+        #endregion
     }
 }
