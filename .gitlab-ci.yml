@@ -26,6 +26,7 @@ build:
     - dotnet build --no-restore --configuration $BUILD_CONFIGURATION
 
 test:
+  <<: *default_template
   stage: test
   dependencies:
     - build
