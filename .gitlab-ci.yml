@@ -36,8 +36,10 @@ test:
   script:
     - echo "Running unit tests..."
     - |
-      if [[ "$ENABLE_CODE_COVERAGE" == "true" ]]; then
-        dotnet test --no-build --configuration $BUILD_CONFIGURATION --collect:"XPlat Code Coverage"
-      else
+      if ("$ENABLE_CODE_COVERAGE" -eq "true")
+      {
+         dotnet test --no-build --configuration $BUILD_CONFIGURATION --collect:"XPlat Code Coverage"
+      }
+      else {
         dotnet test --no-build --configuration $BUILD_CONFIGURATION
-      fi
+      }
