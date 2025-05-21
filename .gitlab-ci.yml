@@ -23,7 +23,7 @@ build:
     - dotnet restore
 
     - echo "Building solution..."
-    - dotnet build --no-restore --configuration $BUILD_CONFIGURATION
+    - dotnet build --no-restore -f net8.0-windows --configuration $BUILD_CONFIGURATION
 
 test:
   <<: *default_template
@@ -38,8 +38,8 @@ test:
     - |
       if ("$ENABLE_CODE_COVERAGE" -eq "true")
       {
-         dotnet test --no-build --configuration $BUILD_CONFIGURATION --collect:"XPlat Code Coverage"
+         dotnet test --no-build -f net8.0-windows --configuration $BUILD_CONFIGURATION --collect:"XPlat Code Coverage"
       }
       else {
-        dotnet test --no-build --configuration $BUILD_CONFIGURATION
+        dotnet test --no-build -f net8.0-windows --configuration $BUILD_CONFIGURATION
       }
