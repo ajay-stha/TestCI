@@ -6,7 +6,7 @@ stages:
 .default_template: &default_template
   tags:
     - windows-shell
-  image: mcr.microsoft.com/dotnet/sdk:9.0
+  image: mcr.microsoft.com/dotnet/sdk:9.0.300
 
 setup:
   <<: *default_template
