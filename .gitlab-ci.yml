@@ -32,7 +32,7 @@ test:
     - build
   before_script:
     - echo "Starting WinAppDriver..."
-    - powershell -Command Start-Process "C:\Program Files (x86)\Windows Application Driver\WinAppDriver.exe"
+    - Start-Process "C:\Program Files (x86)\Windows Application Driver\WinAppDriver.exe"
   script:
     - echo "Running unit tests..."
     - |
