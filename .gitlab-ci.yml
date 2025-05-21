@@ -1,0 +1,42 @@
+stages:
+  - setup
+  - build
+  - test
+
+.default_template: &default_template
+  tags:
+    - windows-shell
+  image: mcr.microsoft.com/dotnet/sdk:${DOTNET_VERSION}
+
+
+setup:
+  <<: *default_template
+  stage: setup
+  script:
+    - echo "Environment and SDK setup completed."
+
+build:
+  <<: *default_template
+  stage: build
+  script:
+    - echo "Restoring dependencies..."
+    - dotnet restore
+
+    - echo "Building solution..."
+    - dotnet build --no-restore --configuration $BUILD_CONFIGURATION
+
+test:
+  stage: test
+  dependencies:
+    - build
+  before_script:
+    - echo "Starting WinAppDriver..."
+    - powershell -Command Start-Process "C:\Program Files (x86)\Windows Application Driver\WinAppDriver.exe"
+  script:
+    - echo "Running unit tests..."
+    - |
+      if [[ "$ENABLE_CODE_COVERAGE" == "true" ]]; then
+        dotnet test --no-build --configuration $BUILD_CONFIGURATION --collect:"XPlat Code Coverage"
+      else
+        dotnet test --no-build --configuration $BUILD_CONFIGURATION
+      fi
