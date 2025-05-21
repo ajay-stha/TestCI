@@ -8,7 +8,7 @@ stages:
     - windows-shell
   image: mcr.microsoft.com/dotnet/sdk:${DOTNET_VERSION}
   before_script:
-    choco install dotnet-sdk --version ${DOTNET_VERSION}
+    winget install dotnet-sdk-9
 
 setup:
   <<: *default_template
