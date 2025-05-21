@@ -6,12 +6,7 @@ namespace MyCLIWpfApp.Tests;
 public class WpfTest
 {
     protected const string WindowsApplicationDriverUrl = "http://127.0.0.1:4723";
-    static string _ProjectDirectory = Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.FullName ?? "";
-#if RELEASE
-    string _PathToTheDemo = _ProjectDirectory + @"\bin\Release\net9.0-windows\MyCLIWpfApp.Wpf.exe";
-#else
-    string _PathToTheDemo = _ProjectDirectory + @"\bin\Debug\net9.0-windows\MyCLIWpfApp.Wpf.exe";
-#endif
+    string _PathToProject = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "MyCLIWpfApp.Wpf.exe");
     private WindowsDriver<WindowsElement>? _DesktopSession;
 
     [OneTimeSetUp]
@@ -20,7 +15,7 @@ public class WpfTest
         if (_DesktopSession == null)
         {
             var appiumOptions = new AppiumOptions();
-            appiumOptions.AddAdditionalCapability(capabilityName: "app", capabilityValue: _PathToTheDemo);
+            appiumOptions.AddAdditionalCapability(capabilityName: "app", capabilityValue: _PathToProject);
             appiumOptions.AddAdditionalCapability(capabilityName: "deviceName", capabilityValue: "WindowsPC");
             appiumOptions.AddAdditionalCapability(capabilityName: "platformName", capabilityValue: "Windows");
 
