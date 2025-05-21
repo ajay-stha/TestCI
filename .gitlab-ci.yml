@@ -6,9 +6,7 @@ stages:
 .default_template: &default_template
   tags:
     - windows-shell
-  image: mcr.microsoft.com/dotnet/sdk:${DOTNET_VERSION}
-  before_script:
-    winget install dotnet-sdk-9
+  image: mcr.microsoft.com/dotnet/sdk:9.0
 
 setup:
   <<: *default_template
