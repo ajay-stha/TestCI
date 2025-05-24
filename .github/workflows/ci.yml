@@ -81,6 +81,7 @@ jobs:
       run: |
         $readme = Get-Content README.md -Raw
         $coverage = Get-Content coveragereport/SummaryGithub.md | Where-Object { $_ -ne '# Summary' }
+        $coverage = $coverage -join "`r`n"
     
         $start = '<!-- COVERAGE-START -->'
         $end = '<!-- COVERAGE-END -->'
