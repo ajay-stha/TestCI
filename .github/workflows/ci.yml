@@ -1,15 +1,13 @@
 name: UI Tests with WinAppDriver
 
-on:
-  pull_request:
-    branches: [ main ]
+on: push
 
 env:
   DOTNET_MISSING: 'true'
 
 jobs:
   ui-tests:
-    runs-on: [self-hosted, windows]
+    runs-on: windows-latest
 
     steps:
     - name: Check if .NET is already installed
@@ -41,6 +39,9 @@ jobs:
     - name: Build
       run: dotnet build --no-restore --configuration ${{ vars.BUILD_CONFIGURATION }}
 
+    - name: Install WinAppDriver
+      run: winget install --id=Microsoft.WindowsApplicationDriver -e
+
     - name: Start WinAppDriver
       run: Start-Process "C:\Program Files (x86)\Windows Application Driver\WinAppDriver.exe"
 
@@ -49,7 +50,7 @@ jobs:
       run: |
         $code_coverage = '${{ vars.ENABLE_CODE_COVERAGE }}'
         if ($code_coverage -eq 'true') {
-          dotnet test --no-build --configuration ${{ vars.BUILD_CONFIGURATION }} --collect:"XPlat Code Coverage"
+          dotnet test --no-build --configuration ${{ vars.BUILD_CONFIGURATION }} --collect:"XPlat Code Coverage" --results-directory "./test-results"
         } else {
           dotnet test --no-build --configuration ${{ vars.BUILD_CONFIGURATION }}
         }
