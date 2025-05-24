@@ -33,19 +33,14 @@ jobs:
       with:
         ref: ${{ github.head_ref }}
 
-    - name: Restore dependencies
-      run: dotnet restore
-
-    - name: Build
-      run: dotnet build --no-restore --configuration ${{ vars.BUILD_CONFIGURATION }}
-
-    - name: Install WinAppDriver
-      run: choco install winappdriver
+    - name: Restore dependencies and build project
+      run: |
+        dotnet build --configuration ${{ vars.BUILD_CONFIGURATION }}
 
     - name: Start WinAppDriver
       run: |
+        choco install winappdriver
         Start-Process "C:\Program Files (x86)\Windows Application Driver\WinAppDriver.exe"
-        Start-Sleep -s 4
       
     - name: Test
       shell: powershell
@@ -76,7 +71,8 @@ jobs:
         reportgenerator -reports:./test-results/**/coverage.cobertura.xml -targetdir:coveragereport -reporttypes:MarkdownSummaryGithub
 
     - name: Write to Job Summary
-      run: cat coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
+      run: cat coveragereport/SummaryGithub.md >$GITHUB_STEP_SUMMARY
+      shell: bash
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
