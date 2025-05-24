@@ -7,6 +7,8 @@ env:
 
 jobs:
   ui-tests:
+    permissions:
+      contents: write
     runs-on: windows-latest
 
     steps:
@@ -90,7 +92,12 @@ jobs:
         Set-Content -Path README.md -Value $updated
 
     - name: Commit and push the changes to README.md
-      uses: mikeal/publish-to-github-action@master
+      run: |
+        git config user.name "github-actions"
+        git config user.email "github-actions@github.com"
+        git add README.md
+        git commit -m "Update README with latest coverage summary"
+        git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
