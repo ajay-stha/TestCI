@@ -42,12 +42,23 @@ The workflow uses the following variables (set in GitHub repository or organizat
 
 1. Start WinAppDriver (`WinAppDriver.exe`).
 2. Build the solution.
+   ```powershell
+   dotnet build
+   ```
 3. Run the tests in `MyCLIWpfApp.Tests` using your preferred test runner or via the command line:
    ```powershell
    dotnet test MyCLIWpfApp.Tests
    ```
 
 ## Test Coverage
+Code coverage is automatically collected and reported by the GitHub Actions workflow when tests pass on every pull request to the `main` branch. The workflow:
+
+- Runs tests with code coverage enabled if the `ENABLE_CODE_COVERAGE` variable is set to `true`.
+- Generates a coverage report using `dotnet-reportgenerator-globaltool`.
+- Updates the `README.md` file by replacing the section between `<!-- COVERAGE-START -->` and `<!-- COVERAGE-END -->` with the latest coverage summary.
+- Commits and pushes the updated `README.md` back to the repository.
+
+You can view the workflow configuration in `.github/workflows/ci.yml` for more details.
 <!-- COVERAGE-START -->
 <details open><summary>Summary</summary>
 
