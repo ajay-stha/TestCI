@@ -1,6 +1,6 @@
 name: UI Tests with WinAppDriver
 
-on: push
+on: [push, pull_request]
 
 env:
   DOTNET_MISSING: 'true'
@@ -69,26 +69,22 @@ jobs:
             Write-Error "Coverage line not found in the results file."
             exit 0
         }
-        
-    - name: Code Coverage Report
-      uses: irongut/CodeCoverageSummary@v1.3.0
-      with:
-        filename: test-results/**/coverage.cobertura.xml
-        badge: true
-        fail_below_min: true
-        format: markdown
-        hide_branch_rate: false
-        hide_complexity: true
-        indicators: true
-        output: both
-        thresholds: '60 80'
+
+    - name: Install ReportGenerator
+      run: dotnet tool install -g dotnet-reportgenerator-globaltool
+
+    - name: Generate coverage report
+      run: reportgenerator -reports:./test-results/**/coverage.cobertura.xml -targetdir:coveragereport -reporttypes:MarkdownSummary
+
+    - name: Show coverage summary
+      run: type coveragereport/Summary.md
       
     - name: Add Coverage PR Comment
       uses: marocchino/sticky-pull-request-comment@v2
       if: github.event_name == 'pull_request'
       with:
         recreate: true
-        path: code-coverage-results.md
+        path: coveragereport/Summary.md
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
