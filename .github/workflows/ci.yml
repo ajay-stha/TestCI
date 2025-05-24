@@ -60,9 +60,15 @@ jobs:
     - name: Get code coverage
       shell: powershell
       run: |
-        $coverageLine = (Select-String -Path "./test-results/**/coverage.cobertura.xml" -Pattern 'line-rate="([0-9.]+)"').Matches[0].Groups[1].Value
-        coveragePercent = [math]::Round([double]$coverageLine * 100, 2)
-        echo "($coveragePercent%) covered"
+        $coverageMatch = Select-String -Path "./test-results/**/coverage.cobertura.xml" -Pattern 'line-rate="([0-9.]+)"' | Select-Object -First 1
+        if ($null -ne $coverageMatch) {
+            $coverageLine = $coverageMatch.Matches.Groups[1].Value
+            $coveragePercent = [math]::Round([double]$coverageLine * 100, 2)
+            echo "($coveragePercent%) covered"
+        } else {
+            Write-Error "Coverage line not found in the results file."
+            exit 1
+        }
       
     - name: Upload artifact
       uses: actions/upload-artifact@v4
