@@ -51,13 +51,18 @@ jobs:
         $code_coverage = '${{ vars.ENABLE_CODE_COVERAGE }}'
         if ($code_coverage -eq 'true') {
           dotnet test --no-build --configuration ${{ vars.BUILD_CONFIGURATION }} --collect:"XPlat Code Coverage" --results-directory "./test-results"
-          $coverageLine = (Select-String -Path "./test-results/**/coverage.cobertura.xml" -Pattern 'line-rate="([0-9.]+)"').Matches[0].Groups[1].Value
-          coveragePercent = [math]::Round([double]$coverageLine * 100, 2)
-          echo "($coveragePercent%) covered"
         } else {
           dotnet test --no-build --configuration ${{ vars.BUILD_CONFIGURATION }}
         }
-    - name: Upload aftifact
+        
+    - name: Get code coverage
+      shell: powershell
+      run: |
+        $coverageLine = (Select-String -Path "./test-results/**/coverage.cobertura.xml" -Pattern 'line-rate="([0-9.]+)"').Matches[0].Groups[1].Value
+        coveragePercent = [math]::Round([double]$coverageLine * 100, 2)
+        echo "($coveragePercent%) covered"
+      
+    - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
         name: my-artifact
