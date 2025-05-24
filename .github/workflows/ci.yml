@@ -7,6 +7,8 @@ env:
 
 jobs:
   ui-tests:
+    permissions:
+      contents: write
     runs-on: windows-latest
 
     steps:
@@ -74,6 +76,31 @@ jobs:
       run: cat coveragereport/SummaryGithub.md >$GITHUB_STEP_SUMMARY
       shell: bash
 
+    - name: Replace coverage section in README.md
+      shell: pwsh
+      run: |
+        $readme = Get-Content README.md -Raw
+        $coverage = Get-Content coveragereport/SummaryGithub.md -Raw
+    
+        $start = '<!-- COVERAGE-START -->'
+        $end = '<!-- COVERAGE-END -->'
+    
+        $pattern = "(?s)($start).*?($end)"
+        $replacement = "$start`r`n$coverage`r`n$end"
+    
+        $updated = [regex]::Replace($readme, $pattern, $replacement)
+        Set-Content -Path README.md -Value $updated
+
+    - name: Commit and push the changes to README.md
+      run: |
+        git config user.name "github-actions"
+        git config user.email "github-actions@github.com"
+        git add README.md
+        git commit -m "Update README with latest coverage summary"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
