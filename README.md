@@ -47,6 +47,11 @@ The workflow uses the following variables (set in GitHub repository or organizat
    dotnet test MyCLIWpfApp.Tests
    ```
 
+## Test Coverage
+<!-- COVERAGE-START -->
+Code coverage summary will be shown here
+<!-- COVERAGE-END -->
+
 ## Contributing
 
 Pull requests are welcome! All PRs are automatically validated by the CI workflow to ensure the application builds and all UI tests pass.
