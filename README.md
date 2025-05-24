@@ -49,7 +49,41 @@ The workflow uses the following variables (set in GitHub repository or organizat
 
 ## Test Coverage
 <!-- COVERAGE-START -->
-Code coverage summary will be shown here
+# Summary
+<details open><summary>Summary</summary>
+
+|||
+|:---|:---|
+| Generated on: | 5/24/2025 - 2:43:44 PM |
+| Coverage date: | 5/24/2025 - 2:43:40 PM |
+| Parser: | Cobertura |
+| Assemblies: | 1 |
+| Classes: | 3 |
+| Files: | 4 |
+| **Line coverage:** | 63.1% (12 of 19) |
+| Covered lines: | 12 |
+| Uncovered lines: | 7 |
+| Coverable lines: | 19 |
+| Total lines: | 92 |
+| **Branch coverage:** | 50% (5 of 10) |
+| Covered branches: | 5 |
+| Total branches: | 10 |
+| **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
+
+</details>
+
+## Coverage
+<details><summary>MyCLIWpfApp.Wpf - 63.1%</summary>
+
+|**Name**|**Line**|**Branch**|
+|:---|---:|---:|
+|**MyCLIWpfApp.Wpf**|**63.1%**|**50%**|
+|MyCLIWpfApp.Wpf.App|100%||
+|MyCLIWpfApp.Wpf.MainWindow|100%|83.3%|
+|MyCLIWpfApp.Wpf.ViewModels.BaseViewModel|36.3%|0%|
+
+</details>
+
 <!-- COVERAGE-END -->
 
 ## Contributing
@@ -59,3 +93,4 @@ Pull requests are welcome! All PRs are automatically validated by the CI workflo
 ---
 
 For more details, see the workflow file or reach out to the maintainers.
+
