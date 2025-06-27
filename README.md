@@ -55,17 +55,13 @@ Code coverage is automatically collected and reported by the GitHub Actions work
 
 - Runs tests with code coverage enabled if the `ENABLE_CODE_COVERAGE` variable is set to `true`.
 - Generates a coverage report using `dotnet-reportgenerator-globaltool`.
-- Updates the `README.md` file by replacing the section between `<!-- COVERAGE-START -->` and `<!-- COVERAGE-END -->` with the latest coverage summary.
-- Commits and pushes the updated `README.md` back to the repository.
-
-You can view the workflow configuration in `.github/workflows/ci.yml` for more details.
-<!-- COVERAGE-START -->
+- Updates the `README.md` file by replacing the section between `<!-- COVERAGE-START -->
 <details open><summary>Summary</summary>
 
 |||
 |:---|:---|
-| Generated on: | 5/24/2025 - 4:26:04 PM |
-| Coverage date: | 5/24/2025 - 4:26:00 PM |
+| Generated on: | 6/27/2025 - 7:10:15 PM |
+| Coverage date: | 6/27/2025 - 7:10:12 PM |
 | Parser: | Cobertura |
 | Assemblies: | 1 |
 | Classes: | 3 |
@@ -74,10 +70,10 @@ You can view the workflow configuration in `.github/workflows/ci.yml` for more d
 | Covered lines: | 9 |
 | Uncovered lines: | 0 |
 | Coverable lines: | 9 |
-| Total lines: | 69 |
-| **Branch coverage:** | 83.3% (5 of 6) |
-| Covered branches: | 5 |
-| Total branches: | 6 |
+| Total lines: | 70 |
+| **Branch coverage:** | 85.7% (6 of 7) |
+| Covered branches: | 6 |
+| Total branches: | 7 |
 | **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
 
 </details>
@@ -87,9 +83,47 @@ You can view the workflow configuration in `.github/workflows/ci.yml` for more d
 
 |**Name**|**Line**|**Branch**|
 |:---|---:|---:|
-|**MyCLIWpfApp.Wpf**|**100%**|**83.3%**|
+|**MyCLIWpfApp.Wpf**|**100%**|**85.7%**|
 |MyCLIWpfApp.Wpf.App|100%||
-|MyCLIWpfApp.Wpf.MainWindow|100%|83.3%|
+|MyCLIWpfApp.Wpf.MainWindow|100%|85.7%|
+|MyCLIWpfApp.Wpf.ViewModels.BaseViewModel|100%||
+
+</details>
+<!-- COVERAGE-END -->` with the latest coverage summary.
+- Commits and pushes the updated `README.md` back to the repository.
+
+You can view the workflow configuration in `.github/workflows/ci.yml` for more details.
+<!-- COVERAGE-START -->
+<details open><summary>Summary</summary>
+
+|||
+|:---|:---|
+| Generated on: | 6/27/2025 - 7:10:15 PM |
+| Coverage date: | 6/27/2025 - 7:10:12 PM |
+| Parser: | Cobertura |
+| Assemblies: | 1 |
+| Classes: | 3 |
+| Files: | 4 |
+| **Line coverage:** | 100% (9 of 9) |
+| Covered lines: | 9 |
+| Uncovered lines: | 0 |
+| Coverable lines: | 9 |
+| Total lines: | 70 |
+| **Branch coverage:** | 85.7% (6 of 7) |
+| Covered branches: | 6 |
+| Total branches: | 7 |
+| **Method coverage:** | [Feature is only available for sponsors](https://reportgenerator.io/pro) |
+
+</details>
+
+## Coverage
+<details><summary>MyCLIWpfApp.Wpf - 100%</summary>
+
+|**Name**|**Line**|**Branch**|
+|:---|---:|---:|
+|**MyCLIWpfApp.Wpf**|**100%**|**85.7%**|
+|MyCLIWpfApp.Wpf.App|100%||
+|MyCLIWpfApp.Wpf.MainWindow|100%|85.7%|
 |MyCLIWpfApp.Wpf.ViewModels.BaseViewModel|100%||
 
 </details>
@@ -102,6 +136,7 @@ Pull requests are welcome! All PRs are automatically validated by the CI workflo
 ---
 
 For more details, see the workflow file or reach out to the maintainers.
+
 
 
 
