@@ -14,6 +14,6 @@ public partial class MainWindow : Window
 
     private void OnSayHello(object sender, RoutedEventArgs e)
     {
-        txtResult.Text = $"Hello {txtName.Text}";
+        txtResult.Text = $"Hello {txtName.Text} {txtLastName.Text}";
     }
 }

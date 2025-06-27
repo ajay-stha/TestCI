@@ -38,10 +38,13 @@ public class WpfTest
         {
             var txtName = _DesktopSession.FindElementByAccessibilityId("txtName");
             txtName.Clear();
-            txtName.SendKeys("aJ");
+            txtName.SendKeys("ajay");
+            var txtLastName = _DesktopSession.FindElementByAccessibilityId("txtLastName");
+            txtLastName.Clear();
+            txtLastName.SendKeys("stha");
             _DesktopSession.FindElementByAccessibilityId("sayHelloButton").Click();
             var txtResult = _DesktopSession.FindElementByAccessibilityId("txtResult");
-            Assert.That(txtResult.Text, Is.EqualTo($"Hello {txtName.Text}"));
+            Assert.That(txtResult.Text, Is.EqualTo($"Hello {txtName.Text} {txtLastName.Text}"));
         }
         else
         {
