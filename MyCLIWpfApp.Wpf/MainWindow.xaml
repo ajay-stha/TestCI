@@ -16,6 +16,7 @@
     <StackPanel Margin="12">
         <TextBlock Text="Enter your name:" />
         <TextBox x:Name="txtName" AutomationProperties.AutomationId="txtName" />
+        <TextBox x:Name="txtLastName" AutomationProperties.AutomationId="txtLastName" />
         <Button
             AutomationProperties.AutomationId="sayHelloButton"
             Click="OnSayHello"
