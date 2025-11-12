@@ -60,8 +60,8 @@ Code coverage is automatically collected and reported by the GitHub Actions work
 
 |||
 |:---|:---|
-| Generated on: | 6/27/2025 - 7:10:15 PM |
-| Coverage date: | 6/27/2025 - 7:10:12 PM |
+| Generated on: | 11/12/2025 - 2:34:55 PM |
+| Coverage date: | 11/12/2025 - 2:34:51 PM |
 | Parser: | Cobertura |
 | Assemblies: | 1 |
 | Classes: | 3 |
@@ -98,8 +98,8 @@ You can view the workflow configuration in `.github/workflows/ci.yml` for more d
 
 |||
 |:---|:---|
-| Generated on: | 6/27/2025 - 7:10:15 PM |
-| Coverage date: | 6/27/2025 - 7:10:12 PM |
+| Generated on: | 11/12/2025 - 2:34:55 PM |
+| Coverage date: | 11/12/2025 - 2:34:51 PM |
 | Parser: | Cobertura |
 | Assemblies: | 1 |
 | Classes: | 3 |
@@ -136,6 +136,7 @@ Pull requests are welcome! All PRs are automatically validated by the CI workflo
 ---
 
 For more details, see the workflow file or reach out to the maintainers.
+
 
 
 
