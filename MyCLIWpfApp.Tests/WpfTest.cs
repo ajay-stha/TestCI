@@ -48,7 +48,7 @@ public class WpfTest
         }
         else
         {
-            Assert.Fail("Desktop session is null. Test cannot be executed.");
+            Assert.Fail("Desktop session is null. Test cannot be executed properly.");
         }
     }
 
